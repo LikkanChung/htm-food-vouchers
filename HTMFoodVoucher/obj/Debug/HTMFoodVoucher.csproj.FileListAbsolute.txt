@@ -1,0 +1,11 @@
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\bin\Debug\HTMFoodVoucher.exe.config
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\obj\Debug\HTMFoodVoucher.csprojResolveAssemblyReference.cache
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\obj\Debug\HTMFoodVoucher.frmMain.resources
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\obj\Debug\HTMFoodVoucher.Properties.Resources.resources
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\obj\Debug\HTMFoodVoucher.csproj.GenerateResource.Cache
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\bin\Debug\HTMFoodVoucher.exe
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\bin\Debug\HTMFoodVoucher.pdb
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\obj\Debug\HTMFoodVoucher.exe
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\obj\Debug\HTMFoodVoucher.pdb
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\bin\Debug\PrinterUtility.dll
+C:\Users\Dominator\git\htm-food-vouchers\HTMFoodVoucher\bin\Debug\RawPrint.dll
