@@ -36,7 +36,7 @@ namespace HTMFoodVoucher
         private void btn_PrintAndIncrement_Click(object sender, EventArgs e)
         {
             print();
-            nudID.Value = nudID.Value + 1;
+            nudID.Value = nudID.Value == 0 ? 0 : nudID.Value - 1;
         }     
 
         private void print()
@@ -50,25 +50,27 @@ namespace HTMFoodVoucher
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.Alignment.Center());
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleHeight4());
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleWidth4());
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\nHackTheMidlands4.0\n"));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("Meal Voucher\n"));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleHeight6());
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleWidth6());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("  _    _ _______ __  __ \n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" | |  | |__   __|  \\/  |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" | |__| |  | |  | \\  / |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" |  __  |  | |  | |\\/| |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" | |  | |  | |  | |  | |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" |_|  |_|  |_|  |_|  |_|"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("HackTheMidlands4.0\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("Meal Voucher"));
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\n" + cmbVendor.Text + "\n"));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleHeight4());
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleWidth4());
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\n" + nudID.Value + "\n"));
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.CharSize.Nomarl());
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\nThis voucher is only redeemable\nat the above vendor.\n"));
-            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("For more information, please\ncontact one of the\norganisers.\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontB());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("Valid for one meal only.\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("This voucher is only redeemable at the\nabove vendor. "));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("For more information,\nplease contact one of the organisers."));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
             bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\n\n\n\n"));
-
+    
             if (File.Exists(".\\tmpPrint.print"))
             {
                 File.Delete(".\\tmpPrint.print");

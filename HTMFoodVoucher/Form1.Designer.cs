@@ -30,7 +30,7 @@
         {
             this.btnPrint = new System.Windows.Forms.Button();
             this.nudID = new System.Windows.Forms.NumericUpDown();
-            this.btn_PrintAndIncrement = new System.Windows.Forms.Button();
+            this.btn_PrintAndDecrement = new System.Windows.Forms.Button();
             this.cmbVendor = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudID)).BeginInit();
             this.SuspendLayout();
@@ -48,19 +48,24 @@
             // nudID
             // 
             this.nudID.Location = new System.Drawing.Point(12, 39);
+            this.nudID.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.nudID.Name = "nudID";
             this.nudID.Size = new System.Drawing.Size(120, 20);
             this.nudID.TabIndex = 1;
             // 
-            // btn_PrintAndIncrement
+            // btn_PrintAndDecrement
             // 
-            this.btn_PrintAndIncrement.Location = new System.Drawing.Point(12, 94);
-            this.btn_PrintAndIncrement.Name = "btn_PrintAndIncrement";
-            this.btn_PrintAndIncrement.Size = new System.Drawing.Size(120, 23);
-            this.btn_PrintAndIncrement.TabIndex = 2;
-            this.btn_PrintAndIncrement.Text = "Print and Increment";
-            this.btn_PrintAndIncrement.UseVisualStyleBackColor = true;
-            this.btn_PrintAndIncrement.Click += new System.EventHandler(this.btn_PrintAndIncrement_Click);
+            this.btn_PrintAndDecrement.Location = new System.Drawing.Point(12, 94);
+            this.btn_PrintAndDecrement.Name = "btn_PrintAndDecrement";
+            this.btn_PrintAndDecrement.Size = new System.Drawing.Size(120, 23);
+            this.btn_PrintAndDecrement.TabIndex = 2;
+            this.btn_PrintAndDecrement.Text = "Print and Decrement";
+            this.btn_PrintAndDecrement.UseVisualStyleBackColor = true;
+            this.btn_PrintAndDecrement.Click += new System.EventHandler(this.btn_PrintAndIncrement_Click);
             // 
             // cmbVendor
             // 
@@ -80,7 +85,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.cmbVendor);
-            this.Controls.Add(this.btn_PrintAndIncrement);
+            this.Controls.Add(this.btn_PrintAndDecrement);
             this.Controls.Add(this.nudID);
             this.Controls.Add(this.btnPrint);
             this.Name = "frmMain";
@@ -95,7 +100,7 @@
 
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.NumericUpDown nudID;
-        private System.Windows.Forms.Button btn_PrintAndIncrement;
+        private System.Windows.Forms.Button btn_PrintAndDecrement;
         private System.Windows.Forms.ComboBox cmbVendor;
     }
 }
