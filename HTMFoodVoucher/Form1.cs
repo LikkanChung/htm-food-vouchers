@@ -18,6 +18,9 @@ namespace HTMFoodVoucher
     public partial class frmMain : Form
     {
 
+        private List<String> usernames = new List<String>();
+        private List<String> passwords = new List<String>();
+
         public frmMain()
         {
             InitializeComponent();
@@ -26,6 +29,34 @@ namespace HTMFoodVoucher
         private void Form1_Load(object sender, EventArgs e)
         {
             cmbVendor.SelectedIndex = 0;
+
+            // LOAD FILE FOR USERNAMES
+            txtUser.Text = "null";
+            txtPassword.Text = "null";
+
+            try
+            {
+                using (var reader = new StreamReader(@"C:\\htm.csv"))
+                            {
+                                while(!reader.EndOfStream)
+                                {
+                                    var line = reader.ReadLine();
+                                    var values = line.Split(',');
+                                    Console.Out.WriteLine(line);
+
+                                    usernames.Add(values[0]);
+                                    passwords.Add(values[1]);
+                                }
+                            }
+                Console.Out.WriteLine("COUNT " + (int)usernames.Count);
+            } catch
+            {
+                Console.Out.WriteLine("Failed to read CSV");
+            }
+            updateUserPW((int)nudIndex.Value);
+            Console.Out.WriteLine("0: " + usernames[0]);
+            
+            
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -116,7 +147,84 @@ namespace HTMFoodVoucher
 
         }
 
+        private void updateUserPW(int i)
+        {
+            if (!(i < usernames.Count && i >= 0 && i < passwords.Count && i >= 0))
+            {
+                txtUser.Text = "NULL";
+                txtPassword.Text = "NULL";
 
+            } else
+            {
+                txtUser.Text = usernames[i];
+                txtPassword.Text = passwords[i];
+           
+            }
+        }
 
+        private void btn_PrintPW_Click(object sender, EventArgs e)
+        {
+            PrinterUtility.EscPosEpsonCommands.EscPosEpson obj = new PrinterUtility.EscPosEpsonCommands.EscPosEpson();
+
+            String sep = "\n------------------------------\n";
+
+            var bytes = logo();
+
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.Alignment.Center());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("  _    _ _______ __  __ \n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" | |  | |__   __|  \\/  |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" | |__| |  | |  | \\  / |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" |  __  |  | |  | |\\/| |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" | |  | |  | |  | |  | |\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(" |_|  |_|  |_|  |_|  |_|"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("HackTheMidlands4.0\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("HELPq Mentor"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\nAccess the mentor system at:\nhelp.hackthemidlands.com\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\nLogin with the following\nusername and password:\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontB());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\nUsername:\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(txtUser.Text + "\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontB());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("Password:\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(txtPassword.Text + "\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontB());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("Please keep this ticket safe\n(take a picture of it),\nalong with the attached Meal Vouchers.\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("For more information about HELPq,\nplease contact one of the organisers."));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(sep));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontB());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes(nudIndex.Text + "\n"));
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
+            bytes = PrinterUtility.PrintExtensions.AddBytes(bytes, Encoding.ASCII.GetBytes("\n\n\n"));
+
+            if (File.Exists(".\\tmpPrint.print"))
+            {
+                File.Delete(".\\tmpPrint.print");
+            }
+            File.WriteAllBytes(".\\tmpPrint.print", bytes);
+
+            IPrinter printer = new Printer();
+            printer.PrintRawFile("POS-58", ".\\tmpPrint.print");
+            try
+            {
+                File.Delete(".\\tmpPrint.print");
+                nudIndex.Value = nudIndex.Value - 1;
+                updateUserPW((int)nudIndex.Value);
+            }
+            catch
+            {
+
+            }
+
+            
+
+        }
     }
 }
